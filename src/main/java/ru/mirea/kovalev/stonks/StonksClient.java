@@ -26,11 +26,6 @@ public class StonksClient {
                         .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))).execute();
         DailyCurs dailyCurs = response.body();
 
-        System.out.println(dailyCurs);
-
-
-
-
         Optional<Valute> maxValute = dailyCurs.getValutes().stream()
                 .filter(valute -> !valute.getName().equals("СДР (специальные права заимствования)"))
                 .max(Comparator.comparingDouble(Valute::getValue));
