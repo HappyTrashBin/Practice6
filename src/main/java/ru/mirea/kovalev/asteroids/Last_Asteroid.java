@@ -4,21 +4,15 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-import ru.mirea.kovalev.stonks.DailyCurs;
-import ru.mirea.kovalev.stonks.StonksService;
-import ru.mirea.kovalev.stonks.Valute;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 public class Last_Asteroid {
     public static void main(String[] args) throws IOException {
+
+        LocalDateTime neededDate = LocalDateTime.of(2010,9,17,0,0,0,0);
 
         Retrofit rock = new Retrofit
                 .Builder()
@@ -27,12 +21,13 @@ public class Last_Asteroid {
                 .build();
         AsteroidsService asteroidsService = rock.create(AsteroidsService.class);
 
-        LocalDateTime neededDate = LocalDateTime.of(2010,9,17,0,0,0,0);
+        // Сегмент ниже выдаёт множество ошибок при запуске
         Response<List<Asteroid>> response = asteroidsService
-                .getAsteroid(neededDate).execute();
-        List<Asteroid> asteroid = response.body();
+                .getAsteroids().execute();
+        List<Asteroid> asteroids = response.body();
 
-        System.out.println(asteroid);
-        // Вместо вывода астероида, найденного в указанную дату, выводит "null". Как исправить не знаю
+        /*asteroids.stream()
+                .filter(asteroid -> asteroid.getDiscovery_date() == neededDate)
+                .forEach(System.out::println);*/
     }
 }
