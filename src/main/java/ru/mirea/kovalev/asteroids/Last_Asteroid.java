@@ -21,10 +21,11 @@ public class Last_Asteroid {
                 .build();
         AsteroidsService asteroidsService = rock.create(AsteroidsService.class);
 
-        // Сегмент ниже выдаёт множество ошибок при запуске
+        // Сегмент ниже должен занести в response список астероидов, из которого с помощью конкретной даты, я смогу найти конкретный астероид
         Response<List<Asteroid>> response = asteroidsService
-                .getAsteroids().execute();
+                .getAsteroid().execute();
         List<Asteroid> asteroids = response.body();
+        // Если не заработает, надо написать Ксенофонтову, прислать код
 
         /*asteroids.stream()
                 .filter(asteroid -> asteroid.getDiscovery_date() == neededDate)
